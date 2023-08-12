@@ -1,17 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {fetchContacts, addContact, deleteContact} from "./operations"
+import {fetchContacts, addContact, deleteContact} from "./authOperations"
 
 const initialState = {
-  contacts: {
-  items: [],
-  isLoading: false,
-  error: null
+  user: {
+    name: "",
+    email: ""
   },
+  token: null,
+  isLoading: false,
+  error: null,
+  userData: null,
+  authorization: false,
 };
 
-const contactsSlice = createSlice({
+const authSlice = createSlice({
   
-  name: 'contacts',
+  name: 'auth',
   initialState: initialState,
 
  extraReducers: {
@@ -51,20 +55,7 @@ const contactsSlice = createSlice({
    },
  }
 })
-/*  reducers: {
-    
-    addContact: (state, { payload }) => {
-      state.contacts.push(payload);
-    },
-    
-    deleteContact(state, { payload }) {
-     
-      state.contacts = state.contacts.filter(contact => contact.id !== payload);
-    },
-  },
-});
 
-export const { addContact, deleteContact } = contactsSlice.actions; */
+const { reducer: authReducer } = authSlice;
+export default authReducer;
 
-const { reducer: contactsReducer } = contactsSlice;
-export default contactsReducer;
