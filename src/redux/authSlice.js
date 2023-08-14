@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {fetchContacts, addContact, deleteContact} from "./authOperations"
+import {registerUserThunk, addContact, deleteContact} from "./authOperations"
 
 const initialState = {
   user: {
@@ -18,18 +18,23 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: initialState,
 
- extraReducers: {
-    [fetchContacts.pending]: state => {
-      state.contacts.isLoading = true;
+  extraReducers: {
+   [registerUserThunk.pending]: state => {
+      state.isLoading = true;
+      state.error = null;
+
     },
-    [fetchContacts.fulfilled]: (state, { payload }) => {
-      state.contacts.items = payload;
-      state.contacts.isLoading = false;
+    [registerUserThunk.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.authorization = true;
+      state.userData = payload.user;
+      state.token = payload.token;
+     },
+    [registerUserThunk.rejected]: (state, { payload }) => {
+      state.error = payload;
+      state.isLoading = false;
     },
-    [fetchContacts.rejected]: (state, { payload }) => {
-      state.contacts.error = payload;
-      state.contacts.isLoading = false;
-    },
+    
     [addContact.pending]: state => {
       state.contacts.isLoading = true;
     },
