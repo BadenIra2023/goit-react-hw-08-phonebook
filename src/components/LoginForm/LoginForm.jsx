@@ -8,12 +8,12 @@ export const LoginForm = () => {
 const dispatch = useDispatch();
 const handleSubmit = e => {
   e.preventDefault();
-  console.log(e.target)
-    const form = e.currentTarget;
-    const name = form.elements.userName.value
+    console.log(e.target)
+  const form = e.currentTarget;
   const email = form.elements.userEmail.value
+  const password = form.elements.userPassword.value
   const finallUserData = {
-      name, email
+       email, password
   }
   console.log(finallUserData)
  dispatch(loginUserThunk(finallUserData));
@@ -23,13 +23,14 @@ const handleSubmit = e => {
     <div> 
         <h1>Login Into Your Account</h1>
  <form className={css.form} onSubmit={handleSubmit} autoComplete="off">
-      <label className={css.label}>
-        Username
-        <input type="text" name="userName" required minLength={2}/>
-      </label>
+      
       <label className={css.label}>
         Email
         <input type="email" name="userEmail"  required/>
+           </label>
+        <label className={css.label}>
+        Password
+        <input type="password" name="userPassword" required minLength={7}/>
       </label>
       <button type="submit">Sing In</button>
     </form>

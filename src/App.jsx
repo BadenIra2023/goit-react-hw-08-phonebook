@@ -1,8 +1,10 @@
 import css from "./App.module.css"
 
-
-import { Suspense, lazy } from 'react';
+import {refreshUserThunk, logoutUserThunk} from "./redux/authOperations"
+import {selectToken, selectAuthorization} from "./redux/selectors"
+import { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
 
 const HomePage = lazy(()=>import("./pages/Home/HomePage"));
 const RegisterPage = lazy(()=>import("./pages/Register/RegisterPage"));
@@ -10,18 +12,27 @@ const LoginPage = lazy(()=>import("./pages/Login/LoginPage"));
 const ContactsPage = lazy(()=>import("./pages/Contacts/ContactsPage"));
 
 export  const App = () => {
- 
+  const dispatch = useDispatch();
+  const token = useSelector(selectToken);
+  const authorization = useSelector(selectAuthorization);
 
+  useEffect(() => {
+if(!token) return;
+dispatch(refreshUserThunk());
+  }, [token, dispatch])
+  const handlLogOut = () => {
+    dispatch(logoutUserThunk());
+  }
 
   return (
      <div  >
       <header className={css.header}>
         <nav>
           <NavLink className={css.link} to={"/"}>Home</NavLink>
-          <NavLink className={css.link} to={"/contacts"}>Contacts</NavLink>
-          <NavLink className={css.link} to={"/register"}>Register</NavLink>
-          <NavLink className={css.link} to={"/login"}>Login</NavLink>
-          
+          {authorization ? <><NavLink className={css.link} to={"/contacts"}>Contacts</NavLink>
+            <button onClick={handlLogOut}>Log out</button></> : 
+          <><NavLink className={css.link} to={"/register"}>Register</NavLink>
+          <NavLink className={css.link} to={"/login"}>Login</NavLink></>} 
         </nav>
       </header>
       <main>

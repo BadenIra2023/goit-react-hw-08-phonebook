@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {registerUserThunk, addContact, deleteContact} from "./authOperations"
+import {registerUserThunk, loginUserThunk, refreshUserThunk, logoutUserThunk, addContact, deleteContact} from "./authOperations"
 
 const initialState = {
   user: {
@@ -34,7 +34,61 @@ const authSlice = createSlice({
       state.error = payload;
       state.isLoading = false;
     },
+
+    [ loginUserThunk.pending]: state => {
+      state.isLoading = true;
+      state.error = null;
+
+    },
+    [loginUserThunk.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.authorization = true;
+      state.userData = payload.user;
+      state.token = payload.token;
+     },
+    [loginUserThunk.rejected]: (state, { payload }) => {
+      state.error = payload;
+      state.isLoading = false;
+    },
     
+
+
+    [ refreshUserThunk.pending]: state => {
+      state.isLoading = true;
+      state.error = null;
+
+    },
+    [refreshUserThunk.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.authorization = true;
+      state.userData = payload;
+     },
+    [refreshUserThunk.rejected]: (state, { payload }) => {
+      state.error = payload;
+      state.isLoading = false;
+    },
+   
+
+     [ logoutUserThunk.pending]: state => {
+      state.isLoading = true;
+      state.error = null;
+
+    },
+    [logoutUserThunk.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.authorization = false;
+      state.userData = null;
+      state.token = null;
+     },
+    [logoutUserThunk.rejected]: (state, { payload }) => {
+      state.error = payload;
+      state.isLoading = false;
+    },
+
+
+
+
+
     [addContact.pending]: state => {
       state.contacts.isLoading = true;
     },

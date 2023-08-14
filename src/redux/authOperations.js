@@ -32,6 +32,34 @@ export const loginUserThunk = createAsyncThunk("auth/login",
     }
   });
 
+  export const refreshUserThunk = createAsyncThunk("auth/refresh",
+    async (_, thunkAPI) => { 
+      const state = thunkAPI.getState()
+      const token = state.auth.token
+      try {
+      setToken(token) 
+      const responce = await $instanse.get("/users/current");
+      console.log(responce.data)
+      return responce.data;
+    }
+    catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  });
+
+export const logoutUserThunk = createAsyncThunk("auth/logout",
+    async (_, thunkAPI) => { 
+      try {
+        const responce = await $instanse.post("/users/logout");
+        clearToken()
+      console.log(responce.data)
+      return responce.data;
+    }
+    catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  });
+
 
 
 
