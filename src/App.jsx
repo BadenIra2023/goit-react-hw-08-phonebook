@@ -17,9 +17,9 @@ export  const App = () => {
   const authorization = useSelector(selectAuthorization);
 
   useEffect(() => {
-if(!token) return;
+if(!token || authorization) return;
 dispatch(refreshUserThunk());
-  }, [token, dispatch])
+  }, [token, dispatch, authorization])
   const handlLogOut = () => {
     dispatch(logoutUserThunk());
   }

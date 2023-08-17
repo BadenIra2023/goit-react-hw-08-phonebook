@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const $instanse = axios.create({baseURL: "https://connections-api.herokuapp.com"})
+export const $instanse = axios.create({baseURL: "https://connections-api.herokuapp.com"})
 export const setToken = token => { $instanse.defaults.headers["Authorization"] = `Bearer ${token}`};
 export const clearToken = () => { $instanse.defaults.headers["Authorization"] = "" };
 
