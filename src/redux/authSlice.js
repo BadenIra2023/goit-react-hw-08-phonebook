@@ -84,32 +84,6 @@ const authSlice = createSlice({
       state.error = payload;
       state.isLoading = false;
     },
-
-/*
-    [addContact.pending]: state => {
-      state.isLoading = true;
-      state.error = null;
-    },
-    [addContact.fulfilled]: (state, { payload }) => {
-      state.contacts.push(payload);
-      state.isLoading = false;
-    },
-    [addContact.rejected]: (state, { payload }) => {
-      state.error = payload;
-      state.isLoading = false;
-    }, /*
-    [deleteContact.pending]: state => {
-      state.contacts.isLoading = true;
-   },
-   [deleteContact.fulfilled]: (state, { payload }) => {
-      state.contacts.items = state.contacts.items.filter(contact => contact.id !== payload);
-     state.contacts.isLoading = true;
-    
-   },
-    [deleteContact.rejected]: (state, { payload }) => {
-      state.contacts.error = payload;
-      state.contacts.isLoading = false;
-   }, */
  } 
 }) 
 
