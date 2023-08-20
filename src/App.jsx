@@ -5,6 +5,7 @@ import {selectToken, selectAuthorization} from "./redux/selectors"
 import { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
+import PrivateRoute from "components/PrivateRoute/PrivateRoute";
 
 const HomePage = lazy(()=>import("./pages/Home/HomePage"));
 const RegisterPage = lazy(()=>import("./pages/Register/RegisterPage"));
@@ -41,7 +42,9 @@ dispatch(refreshUserThunk());
           <Route path="/" element={<HomePage/>} />
           <Route path="/register" element={<RegisterPage/>}/>
           <Route path="/login" element={<LoginPage/>} />
-          <Route path="/contacts" element={<ContactsPage/>} /> 
+            <Route path="/contacts" element= {<PrivateRoute redirectTo="/login">
+              <ContactsPage />
+               </PrivateRoute> }/>
          </Routes>
         </Suspense>
       </main>

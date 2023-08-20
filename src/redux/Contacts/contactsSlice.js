@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {requestContactsThunk} from "../Contacts/contactsOperations"
+import {requestContactsThunk, addContactThunk, deleteContactThunk} from "../Contacts/contactsOperations"
 
 const initialState = {
   cotacts: null,
@@ -25,7 +25,44 @@ const contactsSlice = createSlice({
     [requestContactsThunk.rejected]: (state, { payload }) => {
       state.error = payload;
       state.isLoading = false;
-    },}
+      },
+    [addContactThunk.pending]: state => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    [addContactThunk.fulfilled]: (state, { payload }) => {
+      state.contacts.push(payload);
+      state.isLoading = false;
+    },
+    [addContactThunk.rejected]: (state, { payload }) => {
+      state.error = payload;
+      state.isLoading = false;
+      },
+    [deleteContactThunk.pending]: state => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    [deleteContactThunk.fulfilled]: (state, { payload }) => {
+      state.contacts = state.contacts.filter(contact => contact.id !== payload.id);
+      state.isLoading = false;
+    },
+    [deleteContactThunk.rejected]: (state, { payload }) => {
+      state.error = payload;
+      state.isLoading = false;
+    },
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    }
+    
+    
+    
 })
 
 const { reducer: contactsReducer } = contactsSlice;

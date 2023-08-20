@@ -85,21 +85,19 @@ const authSlice = createSlice({
       state.isLoading = false;
     },
 
-
-
-
-
+/*
     [addContact.pending]: state => {
-      state.contacts.isLoading = true;
+      state.isLoading = true;
+      state.error = null;
     },
     [addContact.fulfilled]: (state, { payload }) => {
-      state.contacts.items.push(payload);
-      state.contacts.isLoading = false;
+      state.contacts.push(payload);
+      state.isLoading = false;
     },
     [addContact.rejected]: (state, { payload }) => {
-      state.contacts.error = payload;
-      state.contacts.isLoading = false;
-    },
+      state.error = payload;
+      state.isLoading = false;
+    }, /*
     [deleteContact.pending]: state => {
       state.contacts.isLoading = true;
    },
@@ -111,9 +109,9 @@ const authSlice = createSlice({
     [deleteContact.rejected]: (state, { payload }) => {
       state.contacts.error = payload;
       state.contacts.isLoading = false;
-   },
- }
-})
+   }, */
+ } 
+}) 
 
 const { reducer: authReducer } = authSlice;
 export default authReducer;
