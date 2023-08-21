@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {requestContactsThunk, addContactThunk, deleteContactThunk} from "../Contacts/contactsOperations"
 
 const initialState = {
-  cotacts: null,
+  contacts: null,
   isLoading: false,
   error: null,
   
@@ -50,18 +50,8 @@ const contactsSlice = createSlice({
       state.error = payload;
       state.isLoading = false;
     },
-  
-    
-    
-    
-    
-    
-    
-    
     
     }
-    
-    
     
 })
 
