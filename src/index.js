@@ -8,7 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-   <BrowserRouter>
+   <BrowserRouter basename="/goit-react-hw-08-phonebook">
   <React.StrictMode>
     <Provider store={store}>
         <App />
