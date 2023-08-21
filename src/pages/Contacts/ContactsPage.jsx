@@ -22,7 +22,6 @@ const Contacts = () => {
    const authorization = useSelector(selectAuthorization);
    const contacts = useSelector(selectUserContacts);
    const isLoading = useSelector(selectContactsLoading);
-   const error = useSelector(selectContactsError);
    const dispatch = useDispatch();
    useEffect(() => {
       if (!authorization) return;
