@@ -1,5 +1,5 @@
 import React from "react";
-import {selectUserContacts, selectContactsLoading, selectContactsError } from "../../redux/Contacts/contactsSelectors";
+import {selectUserContacts, selectContactsLoading} from "../../redux/Contacts/contactsSelectors";
 import { useSelector, useDispatch } from "react-redux";
 import {selectAuthorization} from "../../redux/selectors";
 import { useEffect } from "react";
