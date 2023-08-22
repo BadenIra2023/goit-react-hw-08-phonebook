@@ -19,10 +19,14 @@ import List from '@mui/material/List';
 
 
 const Contacts = () => {
+  const filter = useSelector(store => {
+    return store.filter.filter;
+  }); 
    const authorization = useSelector(selectAuthorization);
    const contacts = useSelector(selectUserContacts);
    const isLoading = useSelector(selectContactsLoading);
-   const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  console.log(filter)
    useEffect(() => {
       if (!authorization) return;
       dispatch(requestContactsThunk());
@@ -48,7 +52,7 @@ const handleSubmit = e => {
    const handleDeleteContact = (contactId) => {
    dispatch(deleteContactThunk(contactId));
 }
-   
+  
    return (
 <Box
       sx={{
@@ -125,13 +129,14 @@ const handleSubmit = e => {
         >
           Add contact
             </Button>
-             {<Filter/>}  
+         {<Filter />} 
+      
          </Box>
         
           {isLoading && <loader />}
-           
+            
             <List sx={{ maxWidth: '350px', marginLeft: 'auto', marginRight: 'auto' }}>
-              {showContacts && contacts.map(contact => {
+              {showContacts && contacts.filter(contact => contact.name.toLowerCase().includes(filter)).map(contact => {
                  return (
           <ListItem key={contact.id}>
            
@@ -146,58 +151,6 @@ const handleSubmit = e => {
                     </ListItem>    );
       })}
                    </List>
-    </Box>  )
-
-
-    /*  <div> 
-
-
-       <form  onSubmit={handleSubmit}>
-        <label>
-            <span>Name: </span>
-        <input
-            type="text"
-            placeholder="Enter name of contact"
-            name="contactName"
-            pattern= "^[A-Za-z\u0080-\uFFFF ']+$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-          />
-        </label>
-        <label>
-          <span>Number: </span>
-          <input
-            type="text"
-            placeholder= "Enter number of contact"
-            name="contactNumber"
-            pattern="^(\+?[0-9.\(\)\-\s]*)$"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-          />
-         </label>
-        <button  type="submit"> Add contact
-        </button>
-      </form>
-
-         
-           {isLoading && <loader />}
-           {error && <p>Oops, some error occured... {error} </p>}
-           <ul>
-              {showContacts && contacts.map(contact => {
-                 return (
-                    <li key={contact.id}>
-                       <h3>Name: {contact.name} </h3>
-                       <p>Number: {contact.number} </p>
-                       <button type="button"
-                       aria-label="delete"   
-               onClick={() => handleDeleteContact(contact.id)} 
-          >
-            <span>Delete</span>
-            </button>
-                    </li>
-                 )
-              } )}
-           </ul>
-    </div>       */
+    </Box>  )              
       }
 export default Contacts;
